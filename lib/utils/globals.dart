@@ -16,4 +16,5 @@ class Globals {
   static bool isChecked = false;
   static bool isCurrentlyEmployed = true;
   static List<String> languages = [];
+  static List<String> Technicalskills = [];
 }

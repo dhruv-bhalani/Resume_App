@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:resume_builder_app/utils/extension.dart';
 import 'package:resume_builder_app/utils/globals.dart';
 
@@ -11,10 +12,10 @@ class ExperiencesPage extends StatefulWidget {
 
 class _ExperiencesPageState extends State<ExperiencesPage> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  DateTime? date;
 
   @override
   Widget build(BuildContext context) {
-    var isCurrentlyEmployed;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Experience Page'),
@@ -24,11 +25,18 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: formKey,
-          child: Column(
+          child: ListView(
             children: [
+              Text(
+                "Company Name",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.blue[900],
+                ),
+              ),
               TextFormField(
                 decoration: const InputDecoration(
-                  labelText: 'Company Name',
                   hintText: 'New Enterprise, San Francisco',
                   border: OutlineInputBorder(),
                 ),
@@ -40,10 +48,17 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
                   return null;
                 },
               ),
-              16.height,
+              16.height, // This should be an extension method for spacing
+              Text(
+                'School/College/Institute',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.blue[900],
+                ),
+              ),
               TextFormField(
                 decoration: const InputDecoration(
-                  labelText: 'School/College/Institute',
                   hintText: 'Quality Test Engineer',
                   border: OutlineInputBorder(),
                 ),
@@ -56,86 +71,146 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
                 },
               ),
               16.height,
+              Text(
+                'Roles (optional)',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.blue[900],
+                ),
+              ),
               TextFormField(
                 decoration: const InputDecoration(
-                  labelText: 'Roles (optional)',
-                  hintText: 'Working with team members...',
+                  hintText:
+                      'Working with team members to come up with new concepts and product analysis...',
                   border: OutlineInputBorder(),
                 ),
                 onSaved: (value) => Globals.role = value,
-                maxLines: 3,
+                maxLines: 2,
+              ),
+              16.height,
+              Text(
+                'Employed Status',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.blue[900],
+                ),
+              ),
+              ListTile(
+                title: const Text('Previously Employed'),
+                leading: Radio<bool>(
+                  value: false,
+                  groupValue: Globals.isCurrentlyEmployed,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      Globals.isCurrentlyEmployed = value!;
+                    });
+                  },
+                ),
+              ),
+              ListTile(
+                title: const Text('Currently Employed'),
+                leading: Radio<bool>(
+                  value: true,
+                  groupValue: Globals.isCurrentlyEmployed,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      Globals.isCurrentlyEmployed = value!;
+                    });
+                  },
+                ),
               ),
               16.height,
               Row(
                 children: [
                   Expanded(
-                    child: ListTile(
-                      title: const Text('Previously Employed'),
-                      leading: Radio<bool>(
-                        value: false,
-                        groupValue: Globals.isCurrentlyEmployed,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            Globals.isCurrentlyEmployed = value!;
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: ListTile(
-                      title: const Text('Currently Employed'),
-                      leading: Radio<bool>(
-                        value: true,
-                        groupValue: Globals.isCurrentlyEmployed,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            Globals.isCurrentlyEmployed = value!;
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              16.height,
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Date Joined',
-                        hintText: 'DD/MM/YYYY',
-                      ),
-                      onSaved: (value) => Globals.dateJoined = value,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter the date joined';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  if (!Globals.isCurrentlyEmployed) 16.height,
-                  if (!Globals.isCurrentlyEmployed)
-                    Expanded(
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          labelText: 'Date Exit',
-                          hintText: 'DD/MM/YYYY',
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Date Entry',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.blue[900],
+                          ),
                         ),
-                        onSaved: (value) => Globals.dateExit = value,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter the date exit';
-                          }
-                          return null;
-                        },
-                      ),
+                        10.height,
+                        Text(
+                          date != null
+                              ? DateFormat('dd/MM/yyyy').format(date!)
+                              : 'DD/MM/YYYY',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.blue[900],
+                          ),
+                        ),
+                      ],
                     ),
+                  ),
+                  IconButton(
+                    onPressed: () async {
+                      date = await showDatePicker(
+                        context: context,
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime.now(),
+                        initialDate: DateTime.now(),
+                      );
+
+                      setState(() {});
+                    },
+                    icon: const Icon(Icons.calendar_month),
+                  ),
                 ],
               ),
-              const SizedBox(height: 32),
+              if (!Globals.isCurrentlyEmployed) 16.height,
+              if (!Globals.isCurrentlyEmployed)
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Date Exit',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.blue[900],
+                            ),
+                          ),
+                          10.height,
+                          Text(
+                            date != null
+                                ? DateFormat('dd/MM/yyyy').format(date!)
+                                : 'DD/MM/YYYY',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.blue[900],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () async {
+                        date = await showDatePicker(
+                          context: context,
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime.now(),
+                          initialDate: DateTime.now(),
+                        );
+
+                        setState(() {});
+                      },
+                      icon: const Icon(Icons.calendar_month),
+                    ),
+                  ],
+                ),
+              20.height,
               ElevatedButton(
                 onPressed: () {
                   if (formKey.currentState!.validate()) {

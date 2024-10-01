@@ -7,7 +7,6 @@ import 'package:resume_builder_app/views/Build_page/all_options/Contact_info_pag
 import 'package:resume_builder_app/views/Build_page/all_options/Declaration_page/Declaration_page.dart';
 import 'package:resume_builder_app/views/Build_page/all_options/Eduction_page/Eduction_page.dart';
 import 'package:resume_builder_app/views/Build_page/all_options/Experiences_page/Experiences_page.dart';
-import 'package:resume_builder_app/views/Build_page/all_options/Interest_page/Interest_page.dart';
 import 'package:resume_builder_app/views/Build_page/all_options/Personal_Details_page/Personal_details.dart';
 import 'package:resume_builder_app/views/Build_page/all_options/Projects_page/Projects_page.dart';
 import 'package:resume_builder_app/views/Build_page/all_options/References_page/References_page.dart';
@@ -51,11 +50,6 @@ class AppRoutes {
       'route': "experience_info_page",
     },
     {
-      'icon': "${iconpath}certificate.png",
-      'title': "Technical Skills",
-      'route': "technical_Skills_page",
-    },
-    {
       'icon': "${iconpath}open-book.png",
       'title': "Interest/Hobbies",
       'route': "Interest/Hobbies_page",
@@ -92,10 +86,9 @@ class AppRoutes {
     alloptions[3]['route']: (context) => const EductionPage(),
     alloptions[4]['route']: (context) => const ExperiencesPage(),
     alloptions[5]['route']: (context) => const TechnicalSkillsPage(),
-    alloptions[6]['route']: (context) => const InterestPage(),
-    alloptions[7]['route']: (context) => const ProjectsPage(),
-    alloptions[8]['route']: (context) => const AchievementsPage(),
-    alloptions[9]['route']: (context) => const ReferencesPage(),
-    alloptions[10]['route']: (context) => const DeclarationPage(),
+    alloptions[6]['route']: (context) => const ProjectsPage(),
+    alloptions[7]['route']: (context) => const AchievementsPage(),
+    alloptions[8]['route']: (context) => const ReferencesPage(),
+    alloptions[9]['route']: (context) => const DeclarationPage(),
   };
 }
