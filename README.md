@@ -15,7 +15,7 @@
 <img src = "https://github.com/user-attachments/assets/d0a0951d-b92f-4163-bfdf-dab2e984ae04" width="200">
 <img src = "https://github.com/user-attachments/assets/094f9eaa-1a8c-4c90-a3a2-d005a08801d7" width="200">
 <img src = "https://github.com/user-attachments/assets/44788390-d107-4016-a11b-108458d87c21" width="200">
-![WhatsApp Image 2024-10-01 at 12 20 06_d6be726e]()
+
 
 
 
